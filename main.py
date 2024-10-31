@@ -4,9 +4,9 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from telethon import TelegramClient, events
 
 # Telethon API ID и Hash
-api_id = '29500030'
-api_hash = '2a2ea6f8f32b60695219e464699b54fa'
-phone_number = '+375333538369'
+api_id = ''
+api_hash = ''
+phone_number = ''
 
 # Файл сессии Telethon
 client = TelegramClient('anon', api_id, api_hash)
@@ -119,7 +119,7 @@ async def handle_personal_message(event):
         await event.reply(response)
 
 # Создание и запуск бота
-app = ApplicationBuilder().token("7938740841:AAH4UX2G5308aOk2fr-IWAkc9MopCWTaGf0").build()
+app = ApplicationBuilder().token("").build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("stop", stop))
 app.add_handler(CommandHandler("subscribe", subscribe))
