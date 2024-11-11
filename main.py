@@ -2,11 +2,17 @@ import os
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 from telethon import TelegramClient, events
+from dotenv import load_dotenv
 
+
+load_dotenv('keys.env')
 # Telethon API ID и Hash
-api_id = ''
-api_hash = ''
-phone_number = ''
+
+api_id = os.getenv('TELEGRAM_API_ID')
+api_hash = os.getenv('TELEGRAM_API_HASH')
+phone_number = os.getenv('TELEGRAM_PHONE_NUMBER')
+bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
+
 
 # Файл сессии Telethon
 client = TelegramClient('anon', api_id, api_hash)
@@ -79,7 +85,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     global bot_running
     if not bot_running:
         bot_running = True
-        await update.message.reply_text(f'Привет, {update.effective_user.first_name}! Бот активирован!')
+        await update.message.reply_text(f'Привет, {update.effective_user.first_name}! Бот активирован.')
         await client.start(phone=phone_number, code_callback=lambda: input('Введите код: '))
         print("Telethon клиент успешно запущен!")
     else:
@@ -119,7 +125,7 @@ async def handle_personal_message(event):
         await event.reply(response)
 
 # Создание и запуск бота
-app = ApplicationBuilder().token("").build()
+app = ApplicationBuilder().token(bot_token).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("stop", stop))
 app.add_handler(CommandHandler("subscribe", subscribe))
